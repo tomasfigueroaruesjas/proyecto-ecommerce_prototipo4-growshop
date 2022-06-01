@@ -26,6 +26,8 @@ const App = () => {
   //   })
   // }
 
+  // HOLI
+
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
     
