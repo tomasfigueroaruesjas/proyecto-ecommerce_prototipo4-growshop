@@ -12,6 +12,10 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
         <Typography variant="subtitle1">No hay nada</Typography>
     );
 
+    if(!cart) {
+        throw new Error("Todo mal");
+    }
+
     const FilledCart = () => (
         <>
             <Grid container spacing={3} >

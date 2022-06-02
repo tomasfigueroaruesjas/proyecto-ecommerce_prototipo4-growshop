@@ -14,6 +14,7 @@ import  AddressForm from "../AddressForm";
 import  PaymentForm  from "../PaymentForm";
 
 import { commerce } from '../../../lib/commerce';
+import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 
 const steps = ['Shipping Address', 'Payment details'];
 
@@ -57,8 +58,14 @@ const Checkout = ({ cart }) => {
     generateToken();
   }, [cart]);
 
+  
+  if(!cart) {
+    throw new Error("No hay carrito");
+  }
   return (
+    
     <>
+   
       <div className={classes.toolbar} />
       <main className={classes.layout} >
         <Paper className={classes.paper}>

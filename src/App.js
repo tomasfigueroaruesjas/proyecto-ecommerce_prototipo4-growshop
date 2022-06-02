@@ -2,6 +2,7 @@ import React,{ useState, useEffect} from 'react';
 import { Navbar, Products, Cart, Checkout } from './Components';
 import { commerce } from './lib/commerce';
 import { Routes, BrowserRouter as Router, Route } from 'react-router-dom';
+import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,6 @@ const App = () => {
   //   })
   // }
 
-  // HOLI
 
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
@@ -68,11 +68,15 @@ const App = () => {
     <Router>
       <div>
         <Navbar cartTotal={cart.total_items} />
+        
         <Routes>
+          
           <Route path="/cart" element={<Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart} handleEmptyCart={handleEmptyCart} />}/>          
-          <Route path="/checkout" element={<Checkout cart={cart} />} />
+          <Route path="/checkout" element={<ErrorBoundary><Checkout cart={cart} /></ErrorBoundary>} />
           <Route path="/" element={<Products products={products} onAddToCart={handleAddToCart} />} />
+          
         </Routes>
+        
       </div> 
   </Router>)
 };
