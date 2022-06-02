@@ -40,7 +40,7 @@ const App = () => {
   }
 
   const handleUpdateCartQty = async (productId, quantity) => {
-    const {cart} = await commerce.cart.update(productId, {quantity});
+    const {cart} = await commerce.cart.update(productId, {quantity}); // quantity commo objeto pq es solo eso lo que quiero actualizar
     setCart(cart);  
   }
   
