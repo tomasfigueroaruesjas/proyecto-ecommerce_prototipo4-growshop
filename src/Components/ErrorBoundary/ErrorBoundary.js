@@ -10,6 +10,8 @@ export default class ErrorBoundary extends Component {
         return {error: true}
     }
 
+    // INCOMPLETO !!!!! NO FUNCIONA !!!!!
+
   render() {
       if(this.state.error) {
           return(
