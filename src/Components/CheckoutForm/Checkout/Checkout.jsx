@@ -57,7 +57,7 @@ const Checkout = ({ cart }) => {
 
     generateToken();
   }, [cart]);
-
+  console.log(cart);
   
   if(!cart) {
     throw new Error("No hay carrito");
@@ -78,6 +78,7 @@ const Checkout = ({ cart }) => {
             ))}
           </Stepper>
           {activeStep === steps.length ? <Confirmation /> : checkoutToken ? <Form /> : '...Cargando'}
+          
         </Paper>
       </main>
     </>

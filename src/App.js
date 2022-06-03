@@ -1,8 +1,7 @@
 import React,{ useState, useEffect} from 'react';
-import { Navbar, Products, Cart, Checkout } from './Components';
+import { Navbar, Products, Cart, Checkout, ErrorBoundary } from './Components';
 import { commerce } from './lib/commerce';
 import { Routes, BrowserRouter as Router, Route } from 'react-router-dom';
-import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -72,7 +71,7 @@ const App = () => {
         <Routes>
           
           <Route path="/cart" element={<Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart} handleEmptyCart={handleEmptyCart} />}/>          
-          <Route path="/checkout" element={<ErrorBoundary><Checkout cart={cart} /></ErrorBoundary>} />
+          <Route path="/checkout" element={<ErrorBoundary><Checkout  /></ErrorBoundary>} />
           <Route path="/" element={<Products products={products} onAddToCart={handleAddToCart} />} />
           
         </Routes>
