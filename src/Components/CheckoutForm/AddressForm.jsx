@@ -31,7 +31,7 @@ const AddressForm = ({ checkoutToken, next }) => {
   const fetchShippingCountries = async (checkoutTokenId) => {
     const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
 
-    // console.log(countries);
+    console.log(countries);
 
     setShippingCountries(countries);
     setShippingCountry(Object.keys(countries)[0]); // Si uso las keys del objeto, puedo iterar y loopear

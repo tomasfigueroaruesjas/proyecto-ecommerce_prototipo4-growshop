@@ -4,7 +4,7 @@ import './styles.css'
 export default class ErrorBoundary extends Component {
     constructor(props) {
         super(props);
-        this.state = { error: true }
+        this.state = { error: false }
     }
     
 
