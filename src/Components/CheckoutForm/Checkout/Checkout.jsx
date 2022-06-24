@@ -18,7 +18,7 @@ import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 
 const steps = ['Shipping Address', 'Payment details'];
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, handleCaptureCheckout, error, order }) => {
   const classes = useStyles();
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingData, setShippingData] = useState({});
@@ -29,7 +29,7 @@ const Checkout = ({ cart }) => {
   );
 
   const Form = () => activeStep === 0 ? <AddressForm checkoutToken={checkoutToken} next={next}/> : 
-  <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={prevStep} />;
+  <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={prevStep} nextStep={nextStep} handleCaptureCheckout={handleCaptureCheckout} />;
 
   const nextStep = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

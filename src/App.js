@@ -6,6 +6,8 @@ import { Routes, BrowserRouter as Router, Route } from 'react-router-dom';
 const App = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
+  const [order, setOrder] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
   // let prueba = [];  
 
   const fetchProducts = async () => {  // función asíncrona. then catch pero más elegante we
@@ -55,6 +57,24 @@ const App = () => {
     setCart(cart);
   }
 
+  const refreshCart = async () => {
+    const newCart = await commerce.cart.refresh();
+
+    setCart(newCart);
+  }
+
+  const handleCaptureCheckout = async( checkoutTokenId, newOrder ) => {
+    try {
+      const incomingOrder = await commerce.checkout.capture(checkoutTokenId, ...newOrder)
+
+      setOrder(incomingOrder);
+      refreshCart();
+      console.log(incomingOrder);
+    } catch (error) {
+      setErrorMessage(error);
+    }
+  }
+
   useEffect(() => {
     fetchProducts();
     fetchCart();
@@ -71,7 +91,7 @@ const App = () => {
         <Routes>
           
           <Route path="/cart" element={<Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart} handleEmptyCart={handleEmptyCart} />}/>          
-          <Route path="/checkout" element={<ErrorBoundary><Checkout cart={cart} /></ErrorBoundary>} />
+          <Route path="/checkout" element={<ErrorBoundary><Checkout cart={cart} handleCaptureCheckout={handleCaptureCheckout} order={order} errorMessage={errorMessage} /></ErrorBoundary>} />
           <Route path="/" element={<Products products={products} onAddToCart={handleAddToCart} />} />
           
         </Routes>
