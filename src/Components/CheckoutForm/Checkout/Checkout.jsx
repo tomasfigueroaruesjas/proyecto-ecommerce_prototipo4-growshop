@@ -57,7 +57,7 @@ const Checkout = ({ cart, handleCaptureCheckout, error, order }) => {
     }
 
     generateToken();
-  }, [cart]);
+  }, []);
   console.log(cart);
   
   if(!cart) {
