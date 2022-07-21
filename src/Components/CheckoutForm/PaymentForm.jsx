@@ -53,6 +53,7 @@ const PaymentForm = ({ checkoutToken, backStep, nextStep, shippingData, handleCa
       <ReviewForm checkoutToken={checkoutToken}></ReviewForm>
       <Divider />
       <Typography variant="h6" gutterBottom style={{margin: '20px 0'}} > Payment Method</Typography>
+      <React.StrictMode>
       <Elements stripe={stripePromise}>
         <ElementsConsumer>
           {({ elements, stripe }) => (  // parentesis pq la callback tiene otro return
@@ -62,6 +63,7 @@ const PaymentForm = ({ checkoutToken, backStep, nextStep, shippingData, handleCa
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <Button variant='outlined' onClick={backStep}>Back</Button>
                 <Button type='submit' variant='contained' disabled={!stripe} color='primary'>
+                  {/* disabled={!stripe} - Si no se consigue el stripe, el boton va a estar inhabilitado */}
                   Pay {checkoutToken.live.subtotal.formatted_with_symbol }
                 </Button>
               </div>
@@ -69,6 +71,7 @@ const PaymentForm = ({ checkoutToken, backStep, nextStep, shippingData, handleCa
           )}
         </ElementsConsumer>
       </Elements>
+      </React.StrictMode>
     </>
   )
 }

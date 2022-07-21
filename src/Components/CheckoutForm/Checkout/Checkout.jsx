@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import  AddressForm from "../AddressForm";
 import  PaymentForm  from "../PaymentForm";
+import { Link } from 'react-router-dom';
 
 import { commerce } from '../../../lib/commerce';
 import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
@@ -24,9 +25,29 @@ const Checkout = ({ cart, handleCaptureCheckout, error, order }) => {
   const [shippingData, setShippingData] = useState({});
   const [activeStep, setActiveStep] = useState(0);
 
-  const Confirmation = () => (
-    <div>Confirmation</div>
+  let Confirmation = () => order.costumer ? (
+    <>
+      <div>
+        <Typography variant="h5"> Thanks for the money {order.costumer.firstname} {order.costumer.lastname} </Typography>
+        <Divider className={classes.divider} />
+        <Typography variant="subtitle2"> Order {order.costumer_reference}:</Typography>
+      </div>
+      <br />
+      <Button variant="outlined" type="button" component={Link} to='/'>Back to Home</Button>
+    </>
+  ) : (
+    <div className={classes.spinner}>
+      <CircularProgress />
+    </div>
   );
+
+  if(error) {
+    <>
+      <Typography variant="h5">Error {error}</Typography>
+      <br />
+      <Button variant="outlined" type="button" component={Link} to='/'>Back to Home</Button>
+    </>
+  }
 
   const Form = () => activeStep === 0 ? <AddressForm checkoutToken={checkoutToken} next={next}/> : 
   <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={prevStep} nextStep={nextStep} handleCaptureCheckout={handleCaptureCheckout} />;
